@@ -1005,13 +1005,10 @@ public class StkAppService extends Service implements Runnable {
                 sendResponse(RES_ID_ERROR, slotId, true);
             } else {
                 TextMessage alphaId = mStkContext[slotId].mCurrentCmd.geTextMessage();
-                if ((mStkContext[slotId].mCurrentCmd.getBrowserSettings().mode
-                        == LaunchBrowserMode.LAUNCH_IF_NOT_ALREADY_LAUNCHED) &&
-                        ((alphaId == null) || TextUtils.isEmpty(alphaId.text))) {
+                if ((alphaId == null) || TextUtils.isEmpty(alphaId.text)) {
                     // don't need user confirmation in this case
                     // just launch the browser or spawn a new tab
-                    CatLog.d(this, "Browser mode is: launch if not already launched " +
-                            "and user confirmation is not currently needed.\n" +
+                    CatLog.d(this, "user confirmation is not currently needed.\n" +
                             "supressing confirmation dialogue and confirming silently...");
                     mStkContext[slotId].launchBrowser = true;
                     sendResponse(RES_ID_CONFIRM, slotId, true);
